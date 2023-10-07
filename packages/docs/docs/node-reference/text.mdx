@@ -1,13 +1,60 @@
 ---
 title: 'Text'
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Admonition from '@theme/Admonition';
 
-# Text Node
+## Overview
 
-Text nodes are string constants used to pass data to other nodes.
+Text Nodes are string constants used to pass data to other nodes. The text can be written and stored within the Editor, or passed in using dynamically created Inputs through the use of double-handlebar notation within the Editor.
 
-## Config Data
-- text - The text to pass to other nodes.
+## Inputs are Coerced to Strings
 
-## Ports
-- output - Outputs the text to other nodes.
+If the Text Node receives input from another Node that does not produce strings from it's output port, the [coerceType](packages/core/src/utils/coerceType.ts) is used to convert the input into a string-type object. For example, a Prompt Node outputs a "chat-message" object, which is a dictionary containing a "type" and "message" key/value pairs. coerceType will convert a "chat-message" object into just the "message" value as a string. 
+
+If you would like to preserves more of the original input data type, then you should probably use a [Prompt Node](packages/docs/docs/node-reference/prompt.mdx), [Assemble Prompt Node](packages/docs/docs/node-reference/assemble-prompt.mdx), or [Array Node](packages/docs/docs/node-reference/array.mdx) instead of a text node. Or, use a [Prompt Node](packages/docs/docs/node-reference/prompt.mdx) after the text node to re-format the string into a chat-message object.
+
+<Tabs
+  defaultValue="inputs"
+  values={[
+    {label: 'Inputs', value: 'inputs'},
+    {label: 'Outputs', value: 'outputs'},
+    {label: 'Editor Settings', value: 'settings'},
+  ]
+}>
+
+<TabItem value="inputs">
+
+## Inputs
+
+| Title       | Data Type                    | Description                                | Default Value | Notes                                                            |
+| ----------- | ---------------------------- | ------------------------------------------ | ------------- | ---------------------------------------------------------------- |
+| {{any_name}} | string | A string input to be assembled in the Text Node | N/A           | Dynamic number of inputs based on how many unique {{}} are included in the Editor |
+
+</TabItem>
+
+<TabItem value="outputs">
+
+## Outputs
+
+| Title  | Data Type      | Description                 | Notes                                                                                |
+| ------ | -------------- | --------------------------- | ------------------------------------------------------------------------------------ |
+| Text Output | string | The assembled Text as a String | This text is passed to other nodes |
+
+</TabItem>
+
+<TabItem value="settings">
+
+## Editor Settings
+
+This node does not have any specific settings.
+
+</TabItem>
+
+</Tabs>
+
+## See Also
+
+- [Splitting](../user-guide/splitting.md)
+- 
